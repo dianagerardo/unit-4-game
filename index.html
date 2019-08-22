@@ -8,65 +8,242 @@
     <!-- This links to Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
     <!--Links to my external stylesheets-->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-    </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
+    <script src="assets/javascript/game.js"></script>
 
 </head>
 
 <body>
 
     <div class="jumbotron">
-        <img src="https://cdn.iview.abc.net.au/thumbs/1200/zw/ZW0983A_5b0606d84f81b.jpg" alt="zoo" width="100%">
-        <h1 class="display-4">Start the Game!</h1>
 
-        <hr class="my-4">
+        <h1 class="display-4 text-center">Start the Game!</h1>
+
+        <hr class="my-2">
         <div class="list">
-            <p>Rules of the game:<p>
-                    <ul>
-                        <li> Click on a key to try to guess a letter in the word.</li>
-                        <li>If you guessed right, the letter will replace the dashes, and you will get a letter added to
-                            the
-                            "Letters guessed correctly" category.</li>
-                        <li>If you guessed incorrectly, you will lose a life and the letter guessed will appear in the
-                            "letters used" category.</li>
-                        <li>If you guess all the letters in the word before you lose all your lives, you win!</li>
-                    </ul>
+            <p class="bold">Rules of the game:</p>
+            <p>
+                <ul>
+                    <li> Click on the start button for a number.</li>
+                    <li>Each crystal is worth a different amount</li>
+                    <li>Try to click on the crystals to get as close to the number as possible</li>
+                    <li>If you guess all the letters in the word before you lose all your lives, you win!</li>
+                    <li>If you guess all the letters in the word before you lose all your lives, you win!</li>
+                </ul>
+            </p>
         </div>
     </div>
 
 
     <div class="container">
 
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>Match the Prize!</h1>
+            </div>
+        </div>
+        <div class="row">
 
-        <div class="game">
+            <div class="col-12">
+                <div class="card text-center" style="width: 7rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Number to Match:</h5>
+                        <p id="number-text">#</p>
+                    </div>
+                </div>
+            </div>
 
+        </div>
+        <div class="row">
+            <div class="col-12 text-center buttons">
+                <button type="button" class="btn btn-info">Start</button>
+                <button type="button" class="btn btn-secondary">Reset</button>
+            </div>
+        </div>
+        <!--The app should keep a track of the wins and losses without resetting or changing when the page is refreshed-->
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="infoBox">
+                    <!--When player clicks on crystal add points to the total score-->
+                    <!--This score will be hidden until the player clicks a crystal-->
+                    <!--Once a crystal is clicked then the score counter should be updated-->
+                    <h2>Wins: <span id="wins-text"><strong>0</strong></span></h2>
 
-            <h1>Guess the word!</h1>
-            <form id="zooGame">
-                <input type="text" maxlength="1" minlength="1" name="letter" id="letter" placeholder="Guess a letter" />
-                <input id="guess" name="guess" type="submit" value="Guess" />
-                <button id="restart" name="restart" type="button">Reset</button>
-            </form>
-            <ul id="letters"></ul>
-            <p id="messageBox"></p>
-            <p id="output" class="output"></p>
+                    <h2>Losses: <span id="loss-text"><strong>0</strong></span></h2>
 
-            <div class="infoBox">
-                <h2>Used letters: <span id="used-text"><strong>...Nothing.</strong></span></h2>
-
-                <h2>Letters guessed correctly: <span id="correct-text"><strong>...Nothing.</strong></span></h2>
+                    <h2>Score: <span id="score-text"><strong>0</strong></span></h2>
+                </div>
             </div>
         </div>
 
     </div>
+
+    <!-- Display crystals on bottom of page as buttons-->
+    <div class="row">
+        <div class="col-3 text-center crystal-1" id="purple-crystal">
+            <img src="https://www.bing.com/th?id=OIP.koTGsunKe44MHdrlFzFGEQHaHa&w=223&h=219&c=7&o=5&dpr=2&pid=1.7"
+                alt="purple crystal" width="50%">
+        </div>
+        <div class="col-3 text-center crystal-2" id="clear-crystal">
+            <img src="https://www.bing.com/th?id=OIP.LdTcrka8-85cnM21-dYOAAHaHa&w=202&h=203&c=7&o=5&dpr=2&pid=1.7"
+                alt="clear crystal" width="50%">
+        </div>
+        <div class="col-3 text-center crystal-3" id="pink-crystal">
+            <img src="https://www.bing.com/th?id=OIP.yq8Z57TR_8sfU9wUA6xaxAHaKX&w=128&h=173&c=7&o=5&dpr=2&pid=1.7"
+                alt="pink crystal" width="50%">
+        </div>
+        <div class="col-3 text-center crystal-4" id="blue-crystal">
+            <img src=" https://www.bing.com/th?id=OIP.DuTRVTFeIruBSPkJLEIsQwHaJ4&w=152&h=190&c=7&o=5&dpr=2&pid=1.7"
+                alt="blue crystal" width="50%">
+        </div>
+    </div>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+
+            var crystalGame = {
+
+                /////////////////////////////////////////////////
+
+                //  VARIABLES //
+
+                //////////////////////////////////////////////////
+                purpleCrystalWorth: 0,
+                clearCrystalWorth: 0,
+                pinkCrystalWorth: 0,
+                blueCrystalWorth: 0,
+                purpleCrystalText: "",
+                clearCrystalText: "",
+                pinkCrystalText: "",
+                blueCrystalText: "",
+                numberText: "",
+                scoreCounter: 0,
+                // wins[1]
+                // losses[0]
+                winsOrLosses: [0, 0],
+                crystalRandom: 0,
+                computerGuess: 0,
+
+                //////////////////////////////////////////////////
+
+                //  METHODS  //
+
+                //////////////////////////////////////////////////
+                
+                //When the game resets 
+                resetGame: function () {
+                    //the array that has the wins or losses
+                    //the app should keep a track of the wins and losses without resetting or changing when the page is refreshed
+                    this.winsOrLosses;
+                    //user's score should reset to zero
+                    this.scoreCounter= 0;
+                    //Random number generated by computer
+                    this.computerGuess = Math.floor((Math.random() * 120) + 19);
+                    console.log(this.computerGuess);
+                    //The crystals should have new hidden values
+                },
+
+                //Display a random number between 19-120 at the start of the game, maybe after a start button is clicked
+
+                numberToGuess: function () {
+                    //Use math random to generate a random number
+                    this.computerGuess = Math.floor((Math.random() * 120) + 19);
+                    this.numberText = $("#number-text").text(this.computerGuess);
+                },
+            }
+
+            ///////////////////////////////////////////////////
+
+            //  FUNCTIONS  //
+
+            ///////////////////////////////////////////////////
+            crystalGame.numberToGuess();
+
+            function purpleWorthInterval(min,max){ 
+            //Each crystal should have its own hidden value between 1-12
+            //Use math random to give each crystal its own hidden value
+            purpleCrystalWorth = Math.floor((Math.random() * (max-min + 12) + 1));
+            console.log(purpleCrystalWorth);
+            }
+
+            function clearWorthInterval(min,max){ 
+            clearCrystalWorth = Math.floor((Math.random() * (max-min + 12) + 1)),
+            pinkCrystalWorth = Math.floor((Math.random() * (max-min + 12) + 1)),
+            blueCrystalWorth = Math.floor((Math.random() * (max-min + 12) + 1)),
+            
+            console.log(clearCrystalWorth),
+            console.log(pinkCrystalWorth);
+            }
+
+            //Display crystals on bottom of page as buttons
+            //When player clicks on crystal add points to the total score
+
+            function crystalClicked() {
+                $("#purple-crystal").click(function (event) {
+                    alert("Your crystal is worth " + purpleCrystalWorth);
+
+                    //This score will be hidden until the player clicks a crystal
+
+                    //Once a crystal is clicked then the score counter should be updated
+                    purpleWorthInterval();
+                    scoreCounter += purpleCrystalWorth;
+                    $("#score-text").text(scoreCounter);
+                });
+
+                clearCrystalText = $("#clear-crystal").click(function () {
+                    alert("Your crystal is worth " + clearCrystalWorth);
+
+                    scoreCounter += clearCrystalWorth;
+                    $("#score-text").text(scoreCounter);
+                });
+
+                pinkCrystalText = $("#pink-crystal").click(function () {
+                    alert("Your crystal is worth " + pinkCrystalWorth);
+
+                    scoreCounter += clearCrystalWorth;
+                    $("#score-text").text(scoreCounter);
+                });
+
+                blueCrystalText = $("#blue-crystal").click(function () {
+                    alert("Your crystal is worth " + blueCrystalWorth);
+
+                    scoreCounter += blueCrystalWorth;
+                    $("#score-text").text(scoreCounter);
+                });
+            }
+
+            //Does the player's score match the random number?
+            //if so the player wins and the game restarts
+            function compareScores() {
+                if (crystalGame.scoreCounter === crystalGame.computerGuess) {
+                    alert("you have won!");
+                    resetFunction();
+                }
+                //else the player loses if their score goes above the random number and the game resets
+                else if (crystalGame.scoreCounter > crystalGame.computerGuess) {
+                    alert("you have lost!");
+                    resetFunction();
+                }
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
