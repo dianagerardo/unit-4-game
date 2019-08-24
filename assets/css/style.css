@@ -6,11 +6,15 @@ body {
     font-family: sans-serif;
 }
 .container {
-    background-image: url();
+    background-image: url(../images/swirls.jpeg);
     background-size: repeat;
     max-width: 100%;
     max-height: 100%;
   
+ }
+
+ #background {
+     opacity: 0.6;
  }
 
 
@@ -22,9 +26,26 @@ body {
 
 h1 {
     padding-bottom: 2%;
-    color: cadetblue;
+    padding-top: 2%;
+    color:white;
     font-weight: bold;
     font-size: 45px;
+}
+
+.score {
+    font-size: 20px;
+}
+
+.card-title {
+    font-size: 20px;
+}
+
+#number-text {
+    font-size: 32px;
+}
+
+.start {
+    color: rgb(138, 103, 86);
 }
 
 p {
@@ -69,6 +90,11 @@ h2 {
     color: white;
 }
 
+
+.jumbotron {
+    background-color: cadetblue;
+}
+
 .current-word {
     list-style: none;
 }
@@ -83,22 +109,9 @@ h2 {
     transition: all 1s ease;
 }
 
-.error {
-    color: red;
-    opacity: 1;
-}
-
-.warning {
-    color: orange;
-    opacity: 1;
-}
-
-.win {
-    color: aqua;
-    opacity: 1;
-}
 
 .buttons {
     margin-bottom: 2%;
+    margin-top:2%;
 }
 

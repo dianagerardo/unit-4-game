@@ -28,18 +28,18 @@
 
     <div class="jumbotron">
 
-        <h1 class="display-4 text-center">Start the Game!</h1>
+        <h1 class="display-4 text-center start">Start the Game!</h1>
 
         <hr class="my-2">
         <div class="list">
             <p class="bold">Rules of the game:</p>
             <p>
                 <ul>
-                    <li> Click on the start button for a number.</li>
-                    <li>Each crystal is worth a different amount</li>
-                    <li>Try to click on the crystals to get as close to the number as possible</li>
-                    <li>If you guess all the letters in the word before you lose all your lives, you win!</li>
-                    <li>If you guess all the letters in the word before you lose all your lives, you win!</li>
+                    <li> Match the number given by clicking on the crystals.</li>
+                    <li>Each crystal is worth a different amount, which you will be hidden and only reflected in your score. </li>
+                    <li>Try to remember each crystal's value as you play to get as close to the number as possible</li>
+                    <li>If you match the number, you win!</li>
+                    <li>If you go over the number, you lose!</li>
                 </ul>
             </p>
         </div>
@@ -51,12 +51,13 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h1>Match the Prize!</h1>
+
             </div>
         </div>
         <div class="row">
 
             <div class="col-12">
-                <div class="card text-center" style="width: 7rem;">
+                <div class="card text-center" style="width: 10rem;">
                     <div class="card-body">
                         <h5 class="card-title">Number to Match:</h5>
                         <p id="number-text">#</p>
@@ -67,8 +68,7 @@
         </div>
         <div class="row">
             <div class="col-12 text-center buttons">
-                <button type="button" class="btn btn-info" id="start">Start</button>
-                <button type="button" class="btn btn-secondary" id="reset">Reset</button>
+                <button type="button" class="btn btn-info" id="restart">Restart</button>
             </div>
         </div>
         <!--The app should keep a track of the wins and losses without resetting or changing when the page is refreshed-->
@@ -78,192 +78,40 @@
                     <!--When player clicks on crystal add points to the total score-->
                     <!--This score will be hidden until the player clicks a crystal-->
                     <!--Once a crystal is clicked then the score counter should be updated-->
-                    <h2>Wins: <span id="wins-text"><strong>0</strong></span></h2>
+                    <div class="card text-center" style="width: 10rem;">
+                        <div class="card-body score" >
+                            
+                            <h2>Wins: <span id="wins-text"><strong>0</strong></span></h2>
 
-                    <h2>Losses: <span id="loss-text"><strong>0</strong></span></h2>
+                            <h2>Losses: <span id="loss-text"><strong>0</strong></span></h2>
 
-                    <h2>Score: <span id="score-text"><strong>0</strong></span></h2>
+                            <h2>Score: <span id="score-text"><strong>0</strong></span></h2>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Display crystals on bottom of page as buttons-->
+                <div class="row">
+                    <div class="col-3 text-center crystal" id="purple-crystal">
+                        <img src="assets/images/purple.jpeg"
+                            alt="purple crystal" height= 80% width="50%">
+                    </div>
+                    <div class="col-3 text-center crystal" id="clear-crystal">
+                        <img src="assets/images/clear.jpeg"
+                            alt="clear crystal" height= 80% width="50%">
+                    </div>
+                    <div class="col-3 text-center crystal" id="pink-crystal">
+                        <img src="assets/images/pink-crystal.jpeg"
+                            alt="pink crystal" height= 80% width="50%">
+                    </div>
+                    <div class="col-3 text-center crystal" id="blue-crystal">
+                        <img src="assets/images/bliue-crystal.jpeg"
+                            alt="blue crystal" height= 80% width="50%">
+                    </div>
                 </div>
             </div>
+
         </div>
-
-    </div>
-
-    <!-- Display crystals on bottom of page as buttons-->
-    <div class="row">
-        <div class="col-3 text-center crystal-1" id="purple-crystal">
-            <img src="https://www.bing.com/th?id=OIP.koTGsunKe44MHdrlFzFGEQHaHa&w=223&h=219&c=7&o=5&dpr=2&pid=1.7"
-                alt="purple crystal" width="50%">
-        </div>
-        <div class="col-3 text-center crystal-2" id="clear-crystal">
-            <img src="https://www.bing.com/th?id=OIP.LdTcrka8-85cnM21-dYOAAHaHa&w=202&h=203&c=7&o=5&dpr=2&pid=1.7"
-                alt="clear crystal" width="50%">
-        </div>
-        <div class="col-3 text-center crystal-3" id="pink-crystal">
-            <img src="https://www.bing.com/th?id=OIP.yq8Z57TR_8sfU9wUA6xaxAHaKX&w=128&h=173&c=7&o=5&dpr=2&pid=1.7"
-                alt="pink crystal" width="50%">
-        </div>
-        <div class="col-3 text-center crystal-4" id="blue-crystal">
-            <img src=" https://www.bing.com/th?id=OIP.DuTRVTFeIruBSPkJLEIsQwHaJ4&w=152&h=190&c=7&o=5&dpr=2&pid=1.7"
-                alt="blue crystal" width="50%">
-        </div>
-    </div>
-
-    </div>
-
-    <script>
-
-        $(document).ready(function () {
-
-            var crystalGame = {
-
-                /////////////////////////////////////////////////
-
-                //  VARIABLES //
-
-                //////////////////////////////////////////////////
-                purpleCrystalWorth: 0,
-                clearCrystalWorth: 0,
-                pinkCrystalWorth: 0,
-                blueCrystalWorth: 0,
-                purpleCrystalText: "",
-                clearCrystalText: "",
-                pinkCrystalText: "",
-                blueCrystalText: "",
-                numberText: "",
-                scoreCounterText: "",
-                scoreCounter: 0,
-                // wins[1]
-                // losses[0]
-                winsOrLosses: [0, 0],
-                crystalRandom: 0,
-                computerGuess: 0,
-
-                //////////////////////////////////////////////////
-
-                //  METHODS  //
-
-                //////////////////////////////////////////////////
-
-                //When the game resets 
-                resetGame: function () {
-                    //the array that has the wins or losses
-                    //the app should keep a track of the wins and losses without resetting or changing when the page is refreshed
-                    this.winsOrLosses;
-                    //user's score should reset to zero
-                    this.scoreCounter = 0;
-                    this.scoreCounterText = $("#score-text").text(this.scoreCounter);
-                    //Random number generated by computer
-                    this.computerGuess = Math.floor((Math.random() * 120) + 19);
-                    this.numberText = $("#number-text").text(this.computerGuess);
-
-                    //The crystals should have new hidden values
-                },
-
-                //Display a random number between 19-120 at the start of the game, maybe after a start button is clicked
-
-                numberToGuess: function () {
-                    //Use math random to generate a random number
-                    this.computerGuess = Math.floor((Math.random() * 120) + 19);
-                    this.numberText = $("#number-text").text(this.computerGuess);
-                },
-            }
-
-
-            ///////////////////////////////////////////////////
-
-            //  FUNCTIONS  //
-
-            ///////////////////////////////////////////////////
-
-            //when start button is clicked 
-            $("#start").click(function (event) {
-                crystalGame.numberToGuess();
-
-            })
-
-            $("#reset").click(function (event){
-                crystalGame.resetGame();
-            }) 
-
-            function crystalWorthInterval() {
-                //Each crystal should have its own hidden value between 1-12
-                //Use math random to give each crystal its own hidden value
-                crystalGame.crystalRandom = Math.floor((Math.random() * 12) + 1);
-               
-            }
-
-            function purpleWorthInterval() {
-                //Each crystal should have its own hidden value between 1-12
-                //Use math random to give each crystal its own hidden value
-                crystalWorthInterval();
-                crystalGame.scoreCounter += crystalGame.crystalRandom;
-                $("#score-text").text(crystalGame.scoreCounter)
-            }
-
-            function clearWorthInterval(min, max) {
-                crystalGame.clearCrystalWorth = Math.floor((Math.random() * (max - min + 12) + 1));
-            }
-
-            function pinkWorthInterval(min, max) {
-                crystalGame.pinkCrystalWorth = Math.floor((Math.random() * (max - min + 12) + 1));
-            }
-
-            function blueWorthInterval(min, max) {
-                crystalGame.blueCrystalWorth = Math.floor((Math.random() * (max - min + 12) + 1));
-            }
-
-            //Display crystals on bottom of page as buttons
-            //When player clicks on crystal add points to the total score
-
-            $("#purple-crystal").click(function (event) {
-                alert("Your crystal is worth " + crystalGame.purpleCrystalWorth);
-
-                //This score will be hidden until the player clicks a crystal
-
-                //Once a crystal is clicked then the score counter should be updated
-                purpleWorthInterval();
-            });
-
-            clearCrystalText = $("#clear-crystal").click(function () {
-                alert("Your crystal is worth " + crystalGame.clearCrystalWorth);
-
-                crystalGame.scoreCounter += crystalGame.clearCrystalWorth;
-                $("#score-text").text(crystalGame.scoreCounter);
-            });
-
-            pinkCrystalText = $("#pink-crystal").click(function () {
-                alert("Your crystal is worth " + crystalGame.pinkCrystalWorth);
-
-                crystalGame.scoreCounter += crystalGame.clearCrystalWorth;
-                $("#score-text").text(crystalGame.scoreCounter);
-            });
-
-            blueCrystalText = $("#blue-crystal").click(function () {
-                alert("Your crystal is worth " + crystalGame.blueCrystalWorth);
-
-                crystalGame.scoreCounter += crystalGame.blueCrystalWorth;
-                $("#score-text").text(crystalGame.scoreCounter);
-            });
-
-
-            //Does the player's score match the random number?
-            //if so the player wins and the game restarts
-            function compareScores() {
-                if (crystalGame.scoreCounter === crystalGame.computerGuess) {
-                    alert("you have won!");
-                    resetFunction();
-                }
-                //else the player loses if their score goes above the random number and the game resets
-                else if (crystalGame.scoreCounter > crystalGame.computerGuess) {
-                    alert("you have lost!");
-                    resetFunction();
-                }
-            }
-
-        });
-
-    </script>
 
 </body>
 
